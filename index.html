@@ -126,15 +126,21 @@
                 return;
             }
 
-            // Simulate a weight prediction (replace this logic with actual backend integration)
             const resultDiv = document.getElementById('result');
             const predictedWeight = document.getElementById('predicted-weight');
 
             resultDiv.style.display = 'block';
             predictedWeight.textContent = 'Estimating weight based on provided data...';
 
+            // Simple logic to vary weight predictions based on link and screenshot length
             setTimeout(() => {
-                predictedWeight.textContent = 'Estimated Weight: 10kg ~ 15kg (example prediction)';
+                if (link.includes('large') || screenshot.length > 100000) {
+                    predictedWeight.textContent = 'Estimated Weight: 50kg ~ 100kg';
+                } else if (link.includes('medium') || screenshot.length > 50000) {
+                    predictedWeight.textContent = 'Estimated Weight: 20kg ~ 50kg';
+                } else {
+                    predictedWeight.textContent = 'Estimated Weight: 10kg ~ 20kg';
+                }
             }, 2000);
         }
     </script>
