@@ -64,6 +64,14 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+
+        #screenshot-preview {
+            display: none;
+            margin-top: 20px;
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -76,8 +84,12 @@
             <label for="taobao-link">Taobao Product Link:</label>
             <input type="text" id="taobao-link" placeholder="Enter the Taobao product link" required>
 
-            <label for="product-image">Product Image:</label>
-            <input type="file" id="product-image" accept="image/*" required>
+            <label for="product-image">Paste Screenshot (Ctrl+V):</label>
+            <div contenteditable="true" id="screenshot-area" style="border: 1px solid #ddd; padding: 10px; min-height: 100px; background-color: #f9f9f9; border-radius: 4px;">
+                Paste your screenshot here...
+            </div>
+
+            <img id="screenshot-preview" alt="Screenshot Preview">
 
             <button type="button" onclick="predictWeight()">Predict Weight</button>
         </form>
@@ -89,12 +101,28 @@
     </div>
 
     <script>
+        document.getElementById('screenshot-area').addEventListener('paste', function (event) {
+            const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (const item of items) {
+                if (item.type.indexOf('image') === 0) {
+                    const file = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const img = document.getElementById('screenshot-preview');
+                        img.src = event.target.result;
+                        img.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+
         function predictWeight() {
             const link = document.getElementById('taobao-link').value;
-            const image = document.getElementById('product-image').files[0];
+            const screenshot = document.getElementById('screenshot-preview').src;
 
-            if (!link || !image) {
-                alert('Please provide both the Taobao link and the product image.');
+            if (!link || !screenshot) {
+                alert('Please provide both the Taobao link and the product screenshot.');
                 return;
             }
 
