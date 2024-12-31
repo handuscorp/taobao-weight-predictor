@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taobao Weight Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Taobao Weight Predictor</h1>
+    </header>
+
+    <div class="container">
+        <form id="predictor-form">
+            <label for="taobao-link">Taobao Product Link:</label>
+            <input type="text" id="taobao-link" placeholder="Enter the Taobao product link" required>
+
+            <label for="product-image">Product Image:</label>
+            <input type="file" id="product-image" accept="image/*" required>
+
+            <button type="button" onclick="predictWeight()">Predict Weight</button>
+        </form>
+
+        <div class="result" id="result" style="display: none;">
+            <h3>Predicted Weight:</h3>
+            <p id="predicted-weight">Processing...</p>
+        </div>
+    </div>
+
+    <script>
+        function predictWeight() {
+            const link = document.getElementById('taobao-link').value;
+            const image = document.getElementById('product-image').files[0];
+
+            if (!link || !image) {
+                alert('Please provide both the Taobao link and the product image.');
+                return;
+            }
+
+            // Simulate a weight prediction (replace this logic with actual backend integration)
+            const resultDiv = document.getElementById('result');
+            const predictedWeight = document.getElementById('predicted-weight');
+
+            resultDiv.style.display = 'block';
+            predictedWeight.textContent = 'Estimating weight based on provided data...';
+
+            setTimeout(() => {
+                predictedWeight.textContent = 'Estimated Weight: 10kg ~ 15kg (example prediction)';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
